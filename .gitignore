@@ -2,7 +2,7 @@
 *.d
 
 # Folders
-build
+build/
 .vscode
 
 # Compiled Object files

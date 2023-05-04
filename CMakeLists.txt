@@ -7,6 +7,7 @@ include_directories(include)
 
 set(SOURCE_FILES
     lib/server/src/server.cpp
+    lib/server/src/api.cpp
 )
 
 add_executable(myproject ${SOURCE_FILES})
