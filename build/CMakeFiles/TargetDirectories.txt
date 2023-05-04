@@ -1,0 +1,3 @@
+/Users/muslimitsuhide/2023_1_OND/build/CMakeFiles/myproject.dir
+/Users/muslimitsuhide/2023_1_OND/build/CMakeFiles/edit_cache.dir
+/Users/muslimitsuhide/2023_1_OND/build/CMakeFiles/rebuild_cache.dir
