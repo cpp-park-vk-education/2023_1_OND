@@ -2,9 +2,7 @@
 
 
 UserRegistration::UserRegistration(std::shared_ptr<Database> db): db_(db) {}
-void UserRegistration::serve(std::shared_ptr <Writer> w, std::shared_ptr<Reader> r) {
-    std::cout << "FDFDFD" << std::endl;
-    db_->deleteUser("one");}
+void UserRegistration::serve(std::shared_ptr <Writer> w, std::shared_ptr<Reader> r) {}
 
 
 
