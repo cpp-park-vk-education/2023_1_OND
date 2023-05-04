@@ -19,3 +19,8 @@ public:
     virtual void serve(std::shared_ptr <Writer> w,
                        std::shared_ptr <Reader> r) = 0;
 };
+
+
+using WriterSPtr = std::shared_ptr<Writer>;
+using ReaderSPtr = std::shared_ptr<Reader>;
+using HandlerSPtr = std::shared_ptr<Handler>;

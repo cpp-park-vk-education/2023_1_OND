@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <vector>
+#include <memory>
 
 class Database {
 public:
@@ -42,3 +43,5 @@ public:
     virtual bool selectQuestionAnswers(const std::string &question_id,std::vector<std::string> &output) = 0;
 
 };
+
+using DatabaseSPtr = std::shared_ptr<Database>;

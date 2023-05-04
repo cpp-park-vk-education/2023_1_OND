@@ -18,5 +18,5 @@ public:
     ServerTCP(const ServerTCP & server) = delete;
     ServerTCP& operator=(const ServerTCP & server) = delete;
     ~ServerTCP() = default;
-    void setHandler(std::shared_ptr <Handler> handler);
+    void setHandler(HandlerSPtr handler);
 };

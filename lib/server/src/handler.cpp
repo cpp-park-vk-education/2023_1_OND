@@ -2,7 +2,9 @@
 
 
 UserRegistration::UserRegistration(std::shared_ptr<Database> db): db_(db) {}
-void UserRegistration::serve(std::shared_ptr <Writer> w, std::shared_ptr<Reader> r) {}
+void UserRegistration::serve(std::shared_ptr <Writer> w, std::shared_ptr<Reader> r) {
+    std::cout << "FDFDFD" << std::endl;
+    db_->deleteUser("one");}
 
 
 
@@ -18,7 +20,8 @@ RemoveUser::RemoveUser(std::shared_ptr<Database> db): db_(db) {}
 void RemoveUser::serve(std::shared_ptr <Writer> w, std::shared_ptr<Reader> r) {}
 
 
-Ask::Ask(std::shared_ptr<Database> db, std::shared_ptr<APIChatGPT> gpt): db_(db), gpt_(gpt) {}
+Ask::Ask(std::shared_ptr<Database> db, std::shared_ptr<APIChatGPT> gpt,
+         std::shared_ptr<APISphinx> sphinx): db_(db), gpt_(gpt), sphinx_(sphinx) {}
 void Ask::serve(std::shared_ptr <Writer> w, std::shared_ptr<Reader> r) {}
 
 

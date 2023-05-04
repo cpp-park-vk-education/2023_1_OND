@@ -1,7 +1,7 @@
 #include "serve_mux.hpp"
 
 ServeMux::ServeMux(): m_(std::map<std::string, std::unique_ptr<Handler>>()) {}
-void ServeMux::serve(std::shared_ptr<Writer> w, std::shared_ptr<Reader> r) {
+void ServeMux::serve(WriterSPtr w, ReaderSPtr r) {
     std::string target;
     r->read(target);
     if (m_.find(target) == m_.end()) {
@@ -11,6 +11,6 @@ void ServeMux::serve(std::shared_ptr<Writer> w, std::shared_ptr<Reader> r) {
     }
 }
 
-void ServeMux::addHandle(const std::string & url, std::unique_ptr<Handler> handle) {
+void ServeMux::addHandle(const std::string & url, HandlerSPtr handle) {
     m_.insert({url, std::move(handle)});
 }

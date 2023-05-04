@@ -6,58 +6,60 @@
 
 class UserRegistration: public Handler {
 private:
-    std::shared_ptr <Database> db_;
+    DatabaseSPtr db_;
 public:
-    UserRegistration(std::shared_ptr<Database> db);
-    void serve(std::shared_ptr <Writer> w, std::shared_ptr<Reader> r) override;
+    UserRegistration(DatabaseSPtr db);
+    void serve(WriterSPtr w, ReaderSPtr r) override;
 };
 
 class GetUserData: public Handler {
 private:
-    std::shared_ptr <Database> db_;
+    DatabaseSPtr db_;
 public:
-    GetUserData(std::shared_ptr<Database> db);
-    void serve(std::shared_ptr <Writer> w, std::shared_ptr<Reader> r) override;
+    GetUserData(DatabaseSPtr db);
+    void serve(WriterSPtr w, ReaderSPtr r) override;
 };
 
 class ChangeUserData: public Handler {
 private:
-    std::shared_ptr <Database> db_;
+    DatabaseSPtr db_;
 public:
-    ChangeUserData(std::shared_ptr<Database> db);
-    void serve(std::shared_ptr <Writer> w, std::shared_ptr<Reader> r) override;
+    ChangeUserData(DatabaseSPtr db);
+    void serve(WriterSPtr w, ReaderSPtr r) override;
 };
 
 class RemoveUser: public Handler {
 private:
-    std::shared_ptr <Database> db_;
+    DatabaseSPtr db_;
 public:
-    RemoveUser(std::shared_ptr<Database> db);
-    void serve(std::shared_ptr <Writer> w, std::shared_ptr<Reader> r) override;
+    RemoveUser(DatabaseSPtr db);
+    void serve(WriterSPtr w, ReaderSPtr r) override;
 };
 
 class Ask: public Handler {
 private:
-    std::shared_ptr <Database> db_;
+    DatabaseSPtr db_;
     std::shared_ptr <APIChatGPT> gpt_;
+    std::shared_ptr <APISphinx> sphinx_;
 public:
-    Ask(std::shared_ptr<Database> db, std::shared_ptr<APIChatGPT> gpt);
-    void serve(std::shared_ptr <Writer> w, std::shared_ptr<Reader> r) override;
+    Ask(DatabaseSPtr db, std::shared_ptr<APIChatGPT> gpt,
+        std::shared_ptr<APISphinx> sphinx);
+    void serve(WriterSPtr w, ReaderSPtr r) override;
 };
 
 
 class GetHistory: public Handler {
 private:
-    std::shared_ptr <Database> db_;
+    DatabaseSPtr db_;
 public:
-    GetHistory(std::shared_ptr<Database> db);
-    void serve(std::shared_ptr <Writer> w, std::shared_ptr<Reader> r) override;
+    GetHistory(DatabaseSPtr db);
+    void serve(WriterSPtr w, ReaderSPtr r) override;
 };
 
 class RemoveHistory: public Handler {
 private:
-    std::shared_ptr <Database> db_;
+    DatabaseSPtr db_;
 public:
-    RemoveHistory(std::shared_ptr<Database> db);
-    void serve(std::shared_ptr <Writer> w, std::shared_ptr<Reader> r) override;
+    RemoveHistory(DatabaseSPtr db);
+    void serve(WriterSPtr w, ReaderSPtr r) override;
 };

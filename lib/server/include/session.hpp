@@ -20,7 +20,7 @@ private:
 
 public:
 
-    Session(tcp::socket socket, std::shared_ptr <Handler> handler);
+    Session(tcp::socket socket, HandlerSPtr handler);
     std::size_t read(std::string & str) override;
     std::size_t write(const std::string & str) override;
 
