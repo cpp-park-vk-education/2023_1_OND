@@ -1,31 +1,31 @@
 #include "handler.hpp"
 
 
-UserRegistration::UserRegistration(std::shared_ptr<Database> db): db_(db) {}
-void UserRegistration::serve(std::shared_ptr <Writer> w, std::shared_ptr<Reader> r) {}
+UserRegistration::UserRegistration(DatabaseSPtr db): db_(db) {}
+void UserRegistration::serve(WriterSPtr w, ReaderSPtr r) {}
 
 
 
-GetUserData::GetUserData(std::shared_ptr<Database> db): db_(db) {}
-void GetUserData::serve(std::shared_ptr <Writer> w, std::shared_ptr<Reader> r) {}
+GetUserData::GetUserData(DatabaseSPtr db): db_(db) {}
+void GetUserData::serve(WriterSPtr w, ReaderSPtr r) {}
 
 
-ChangeUserData::ChangeUserData(std::shared_ptr<Database> db): db_(db) {}
-void ChangeUserData::serve(std::shared_ptr <Writer> w, std::shared_ptr<Reader> r) {}
+ChangeUserData::ChangeUserData(DatabaseSPtr db): db_(db) {}
+void ChangeUserData::serve(WriterSPtr w, ReaderSPtr r) {}
 
 
-RemoveUser::RemoveUser(std::shared_ptr<Database> db): db_(db) {}
-void RemoveUser::serve(std::shared_ptr <Writer> w, std::shared_ptr<Reader> r) {}
+RemoveUser::RemoveUser(DatabaseSPtr db): db_(db) {}
+void RemoveUser::serve(WriterSPtr w, ReaderSPtr r) {}
 
 
-Ask::Ask(std::shared_ptr<Database> db, std::shared_ptr<APIChatGPT> gpt,
+Ask::Ask(DatabaseSPtr db, std::shared_ptr<APIChatGPT> gpt,
          std::shared_ptr<APISphinx> sphinx): db_(db), gpt_(gpt), sphinx_(sphinx) {}
-void Ask::serve(std::shared_ptr <Writer> w, std::shared_ptr<Reader> r) {}
+void Ask::serve(WriterSPtr w, ReaderSPtr r) {}
 
 
-GetHistory::GetHistory(std::shared_ptr<Database> db): db_(db) {}
-void GetHistory::serve(std::shared_ptr <Writer> w, std::shared_ptr<Reader> r) {}
+GetHistory::GetHistory(DatabaseSPtr db): db_(db) {}
+void GetHistory::serve(WriterSPtr w, ReaderSPtr r) {}
 
 
-RemoveHistory::RemoveHistory(std::shared_ptr<Database> db): db_(db) {}
-void RemoveHistory::serve(std::shared_ptr <Writer> w, std::shared_ptr<Reader> r) {}
+RemoveHistory::RemoveHistory(DatabaseSPtr db): db_(db) {}
+void RemoveHistory::serve(WriterSPtr w, ReaderSPtr r) {}

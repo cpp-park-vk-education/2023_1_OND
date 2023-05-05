@@ -13,14 +13,14 @@ public:
     virtual std::size_t read(std::string & r) = 0;
 };
 
+using WriterSPtr = std::shared_ptr<Writer>;
+using ReaderSPtr = std::shared_ptr<Reader>;
+
 class Handler {
 public:
     virtual ~Handler() {}
-    virtual void serve(std::shared_ptr <Writer> w,
-                       std::shared_ptr <Reader> r) = 0;
+    virtual void serve(WriterSPtr w,
+                       ReaderSPtr r) = 0;
 };
 
-
-using WriterSPtr = std::shared_ptr<Writer>;
-using ReaderSPtr = std::shared_ptr<Reader>;
 using HandlerSPtr = std::shared_ptr<Handler>;

@@ -5,6 +5,7 @@
 #include "interfaces.hpp"
 #include "session.hpp"
 
+using tcp = boost::asio::ip::tcp;
 
 class ServerTCP {
 private:
