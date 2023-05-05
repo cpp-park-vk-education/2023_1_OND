@@ -12,3 +12,4 @@ public:
     virtual ~APIFestival() {}
     virtual void speak(const std::string & text_answer, std::string & voice_answer) = 0;
 };
+

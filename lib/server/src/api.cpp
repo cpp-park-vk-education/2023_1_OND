@@ -1,4 +1,4 @@
-#include "include/api.hpp"
+#include "../include/api.hpp"
 
 class BoobSphinx : public APISphinx {
 public:
@@ -20,4 +20,8 @@ public:
 
 std::unique_ptr<APIFestival> createBoobFestival() {
     return std::make_unique<BoobFestival>();
+}
+
+int main(){
+    return 0;
 }
