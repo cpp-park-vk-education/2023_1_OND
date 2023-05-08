@@ -11,5 +11,5 @@ private:
 public:
     ServeMux();
     void serve(WriterSPtr w, ReaderSPtr r) override;
-    void addHandle(const std::string & url, std::unique_ptr <Handler> handle);
+    void addHandle(const std::string & target, std::unique_ptr <Handler> handle);
 };

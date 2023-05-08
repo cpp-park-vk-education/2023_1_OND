@@ -41,9 +41,11 @@ private:
     DatabaseSPtr db_;
     std::shared_ptr <APIChatGPT> gpt_;
     std::shared_ptr <APISphinx> sphinx_;
+    std::shared_ptr <APIFestival> festival_;
 public:
     Ask(DatabaseSPtr db, std::shared_ptr<APIChatGPT> gpt,
-        std::shared_ptr<APISphinx> sphinx);
+        std::shared_ptr<APISphinx> sphinx,
+        std::shared_ptr<APIFestival> festival);
     void serve(WriterSPtr w, ReaderSPtr r) override;
 };
 

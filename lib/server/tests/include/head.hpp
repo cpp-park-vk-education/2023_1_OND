@@ -8,6 +8,8 @@
 #include "session.hpp"
 #include "serve_mux.hpp"
 #include "handler.hpp"
+#include "api.hpp"
+#include "client_http.hpp"
 
 using rows = std::vector<std::string>;
 
@@ -66,7 +68,7 @@ public:
                                   const std::string &token), (override));
     MOCK_METHOD(bool, deleteUser, (const std::string &username), (override));
     MOCK_METHOD(bool, selectUser, (const std::string &username,
-                                   std::vector<std::string> &output), (override));
+                                std::vector<std::string> &output), (override));
     MOCK_METHOD(bool, insertQuestionAndAnswer, 
         (const std::string &user_name, const std::string &question,
         const std::string &answer), (override));
@@ -83,6 +85,36 @@ public:
         std::vector<std::string> &output), (override));
 };
 
+class MockChatGPT: public APIChatGPT {
+public:
+    MOCK_METHOD(void, ask, (const std::string & token,
+                     const std::string & question,
+                     std::string & answer), (override));
+};
+
+class MockSphinx: public APISphinx {
+public:
+    MOCK_METHOD(void, trans, (const std::string & voice_question,
+                              std::string & text_question), (override));
+};
+
+class MockFestival: public APIFestival {
+public:
+    MOCK_METHOD(void, speak, (const std::string & text_answer,
+            std::string & voice_answer), (override));
+};
+
+class MockClienHTTP: public IClientHTTP {
+public:
+    MOCK_METHOD(int, post, (const Header & headers,
+                            const std::string & body,
+                            const std::string & url,
+                            std::string & response), (override));
+};
+
 using MockWriteSPtr = std::shared_ptr<MockWrite>;
 using StubReadSPtr = std::shared_ptr<StubRead>;
 using MockDatabaseSPtr = std::shared_ptr<MockDatabase>;
+using MockChatGPTSPtr = std::shared_ptr<MockChatGPT>;
+using MockSphinxSPtr = std::shared_ptr<MockSphinx>;
+using MockFestivalSPtr = std::shared_ptr<MockFestival>;

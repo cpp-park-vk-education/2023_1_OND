@@ -15,7 +15,7 @@ class ChatGPT: public APIChatGPT {
 private:
     std::shared_ptr <IClientHTTP> client_;
 
-    void sendQuestion(const std::string & question, std::string & response);
+    void sendQuestion(const std::string & token, const std::string & question, std::string & response);
     void fetchAnswer(const std::string & response, std::string & answer);
 
 public:
@@ -30,7 +30,7 @@ public:
 class APISphinx {
 public:
     virtual ~APISphinx() {}
-    virtual void trans(const std::string & question) = 0;
+    virtual void trans(const std::string & voice_question, std::string & text_question) = 0;
 };
 
 class APIFestival {

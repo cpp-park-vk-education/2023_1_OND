@@ -11,6 +11,6 @@ void ServeMux::serve(WriterSPtr w, ReaderSPtr r) {
     }
 }
 
-void ServeMux::addHandle(const std::string & url, std::unique_ptr <Handler> handle) {
-    m_.insert({url, std::move(handle)});
+void ServeMux::addHandle(const std::string & target, std::unique_ptr <Handler> handle) {
+    m_.insert({target, std::move(handle)});
 }

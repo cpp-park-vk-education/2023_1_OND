@@ -19,7 +19,9 @@ void RemoveUser::serve(WriterSPtr w, ReaderSPtr r) {}
 
 
 Ask::Ask(DatabaseSPtr db, std::shared_ptr<APIChatGPT> gpt,
-         std::shared_ptr<APISphinx> sphinx): db_(db), gpt_(gpt), sphinx_(sphinx) {}
+         std::shared_ptr<APISphinx> sphinx,
+         std::shared_ptr<APIFestival> festival):
+            db_(db), gpt_(gpt), sphinx_(sphinx), festival_(festival) {}
 void Ask::serve(WriterSPtr w, ReaderSPtr r) {}
 
 
