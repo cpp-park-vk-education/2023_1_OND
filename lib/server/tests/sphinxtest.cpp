@@ -19,7 +19,7 @@ TEST(MockSphinxTest, TestTransEmpty) {
   ASSERT_TRUE(text_question.empty());
 }
 
-TEST(MockAPISphinxTest, TestTransRussLeng) {
+TEST(MockSphinxTest, TestTransRussLeng) {
     std::string voice_question = "Какая сегодня погода?";
     std::string text_question;
     MockAPISphinx mock_api;
@@ -33,7 +33,7 @@ TEST(MockAPISphinxTest, TestTransRussLeng) {
     ASSERT_EQ(text_question, "Какая сегодня погода?");
 }
 
-TEST(MockAPISphinxTest, TestTransCallOnce) {
+TEST(MockSphinxTest, TestTransCallOnce) {
   std::string voice_question = "Привет";
   std::string text_question;
   MockAPISphinx mock_api;
@@ -43,16 +43,30 @@ TEST(MockAPISphinxTest, TestTransCallOnce) {
   api.trans(voice_question, text_question);
 }
 
-TEST(MockAPISphinxTest, TestTransLongText) {
+TEST(MockSphinxTest, TestTransLongText) {
   std::string voice_question = "Просто введу сюда длинный запрос в надежде на то, что все упадет, а может и нет, я не знаю";
   std::string text_question;
   MockAPISphinx mock_api;
   EXPECT_CALL(mock_api, trans(voice_question, testing::_))
       .WillOnce(testing::DoAll(
-          testing::SetArgReferee<1>("Просто введу сюда длинный запрос в надежде на то, что все упадет или нет"),
+          testing::SetArgReferee<1>("Просто введу сюда длинный запрос в надежде на то, что все упадет, а может и нет, я не знаю"),
           testing::Return()
       ));
   APISphinx& api = mock_api;
   api.trans(voice_question, text_question);
-  ASSERT_EQ(text_question, "Просто введу сюда длинный запрос в надежде на то, что все упадет или нет");
+  ASSERT_EQ(text_question, "Просто введу сюда длинный запрос в надежде на то, что все упадет, а может и нет, я не знаю");
+}
+
+TEST(MockSphinxTest, TestTransNum) {
+  std::string voice_question = "0123456789";
+  std::string text_question;
+  MockAPISphinx mock_api;
+  EXPECT_CALL(mock_api, trans(voice_question, testing::_))
+      .WillOnce(testing::DoAll(
+          testing::SetArgReferee<1>("0123456789"),
+          testing::Return()
+      ));
+  APISphinx& api = mock_api;
+  api.trans(voice_question, text_question);
+  ASSERT_EQ(text_question, "0123456789");
 }
