@@ -106,7 +106,7 @@ public:
 
 class MockClienHTTP: public IClientHTTP {
 public:
-    MOCK_METHOD(int, post, (const Header & headers,
+    MOCK_METHOD(int, post, (Header & headers,
                             const std::string & body,
                             const std::string & url,
                             std::string & response), (override));

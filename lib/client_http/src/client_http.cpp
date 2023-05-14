@@ -1,12 +1,17 @@
-#include "client_http.hpp"
-#include <iostream>
 #include <cpr/cpr.h>
+#include <cpr/util.h>
 
-int ClientHTTP::post(const Header & headers, const std::string & body, const std::string & url, std::string & response) {
-    cpr::Response r = cpr::Post(cpr::Url{url},
-                                cpr::Header{headers},
-                                cpr::Body{body});
-    std::string answer = r.text;
-    std::cout << answer << std::endl;
-    return 200;
+#include "client_http.hpp"
+
+int ClientHTTP::post(Header & headers, const std::string & body, const std::string & url, std::string & response) {
+    std::string str_headers;
+    for (const auto& [header, value] : headers) {
+        str_headers += header + ": " + value + "\r\n";
+    }
+    str_headers += "\r\n";
+    cpr::Response res = cpr::Post(cpr::Url(url),
+                                  cpr::util::parseHeader(str_headers),
+                                  cpr::Body(body));
+    response = res.text;
+    return res.status_code;
 }
