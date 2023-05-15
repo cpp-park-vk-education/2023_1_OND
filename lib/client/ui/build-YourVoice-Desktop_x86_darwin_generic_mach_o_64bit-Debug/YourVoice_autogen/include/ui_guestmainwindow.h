@@ -27,19 +27,20 @@ public:
     QWidget *centralwidget;
     QVBoxLayout *verticalLayout;
     QFrame *frame;
-    QPushButton *pushButton;
-    QLabel *label;
-    QPushButton *pushButton_3;
-    QPushButton *pushButton_4;
-    QPushButton *pushButton_5;
+    QPushButton *LogInButton;
+    QLabel *LogoLabel;
+    QPushButton *EmptyButton1;
+    QPushButton *EmptyButton2;
+    QPushButton *EmptyButton3;
     QFrame *frame_2;
-    QPushButton *pushButton_2;
-    QLabel *label_2;
+    QPushButton *RecordButton;
+    QLabel *VoiceLabel;
 
     void setupUi(QMainWindow *GuestMainWindow)
     {
         if (GuestMainWindow->objectName().isEmpty())
             GuestMainWindow->setObjectName("GuestMainWindow");
+        GuestMainWindow->setEnabled(true);
         GuestMainWindow->resize(800, 489);
         GuestMainWindow->setMinimumSize(QSize(800, 480));
         GuestMainWindow->setStyleSheet(QString::fromUtf8("background-color: qlineargradient(spread:pad, x1:1, y1:1, x2:0, y2:0, stop:0 rgba(81, 0, 135, 255), stop:0.427447 rgba(41, 18, 129, 235), stop:1 rgba(155, 79, 185, 255));"));
@@ -57,11 +58,11 @@ public:
         frame->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
         frame->setFrameShape(QFrame::StyledPanel);
         frame->setFrameShadow(QFrame::Raised);
-        pushButton = new QPushButton(frame);
-        pushButton->setObjectName("pushButton");
-        pushButton->setGeometry(QRect(680, 10, 100, 32));
-        pushButton->setCursor(QCursor(Qt::PointingHandCursor));
-        pushButton->setStyleSheet(QString::fromUtf8("QPushButton {\n"
+        LogInButton = new QPushButton(frame);
+        LogInButton->setObjectName("LogInButton");
+        LogInButton->setGeometry(QRect(680, 10, 100, 32));
+        LogInButton->setCursor(QCursor(Qt::PointingHandCursor));
+        LogInButton->setStyleSheet(QString::fromUtf8("QPushButton {\n"
 "    border-radius:  15px;\n"
 "    background-color:  rgb(116,74,246);\n"
 "    color: white;\n"
@@ -75,16 +76,16 @@ public:
 "QPushButton:pressed {\n"
 "    background-color:  red;\n"
 "}"));
-        label = new QLabel(frame);
-        label->setObjectName("label");
-        label->setGeometry(QRect(10, 4, 45, 41));
-        label->setPixmap(QPixmap(QString::fromUtf8("img/logo.png")));
-        label->setScaledContents(true);
-        pushButton_3 = new QPushButton(frame);
-        pushButton_3->setObjectName("pushButton_3");
-        pushButton_3->setGeometry(QRect(100, 10, 100, 32));
-        pushButton_3->setCursor(QCursor(Qt::PointingHandCursor));
-        pushButton_3->setStyleSheet(QString::fromUtf8("QPushButton {\n"
+        LogoLabel = new QLabel(frame);
+        LogoLabel->setObjectName("LogoLabel");
+        LogoLabel->setGeometry(QRect(10, 4, 45, 41));
+        LogoLabel->setPixmap(QPixmap(QString::fromUtf8("img/logo.png")));
+        LogoLabel->setScaledContents(true);
+        EmptyButton1 = new QPushButton(frame);
+        EmptyButton1->setObjectName("EmptyButton1");
+        EmptyButton1->setGeometry(QRect(100, 10, 100, 32));
+        EmptyButton1->setCursor(QCursor(Qt::PointingHandCursor));
+        EmptyButton1->setStyleSheet(QString::fromUtf8("QPushButton {\n"
 "    background-color:  none;\n"
 "    border: none;\n"
 "    color: grey;\n"
@@ -94,11 +95,11 @@ public:
 "     color: black;\n"
 "}\n"
 ""));
-        pushButton_4 = new QPushButton(frame);
-        pushButton_4->setObjectName("pushButton_4");
-        pushButton_4->setGeometry(QRect(180, 10, 100, 32));
-        pushButton_4->setCursor(QCursor(Qt::PointingHandCursor));
-        pushButton_4->setStyleSheet(QString::fromUtf8("QPushButton {\n"
+        EmptyButton2 = new QPushButton(frame);
+        EmptyButton2->setObjectName("EmptyButton2");
+        EmptyButton2->setGeometry(QRect(180, 10, 100, 32));
+        EmptyButton2->setCursor(QCursor(Qt::PointingHandCursor));
+        EmptyButton2->setStyleSheet(QString::fromUtf8("QPushButton {\n"
 "    background-color:  none;\n"
 "    border: none;\n"
 "    color: grey;\n"
@@ -108,11 +109,11 @@ public:
 "     color: black;\n"
 "}\n"
 ""));
-        pushButton_5 = new QPushButton(frame);
-        pushButton_5->setObjectName("pushButton_5");
-        pushButton_5->setGeometry(QRect(270, 10, 100, 32));
-        pushButton_5->setCursor(QCursor(Qt::PointingHandCursor));
-        pushButton_5->setStyleSheet(QString::fromUtf8("QPushButton {\n"
+        EmptyButton3 = new QPushButton(frame);
+        EmptyButton3->setObjectName("EmptyButton3");
+        EmptyButton3->setGeometry(QRect(270, 10, 100, 32));
+        EmptyButton3->setCursor(QCursor(Qt::PointingHandCursor));
+        EmptyButton3->setStyleSheet(QString::fromUtf8("QPushButton {\n"
 "    background-color:  none;\n"
 "    border: none;\n"
 "    color: grey;\n"
@@ -130,26 +131,27 @@ public:
         frame_2->setStyleSheet(QString::fromUtf8("background-color: none;"));
         frame_2->setFrameShape(QFrame::StyledPanel);
         frame_2->setFrameShadow(QFrame::Raised);
-        pushButton_2 = new QPushButton(frame_2);
-        pushButton_2->setObjectName("pushButton_2");
-        pushButton_2->setGeometry(QRect(340, 190, 101, 91));
-        pushButton_2->setStyleSheet(QString::fromUtf8("QPushButton {\n"
+        RecordButton = new QPushButton(frame_2);
+        RecordButton->setObjectName("RecordButton");
+        RecordButton->setGeometry(QRect(340, 190, 101, 91));
+        RecordButton->setStyleSheet(QString::fromUtf8("QPushButton {\n"
 "    background-color:  none;\n"
 "    border: none;\n"
-"}"));
+"}\n"
+""));
         QIcon icon;
         icon.addFile(QString::fromUtf8("img/voice_btn.png"), QSize(), QIcon::Normal, QIcon::Off);
-        pushButton_2->setIcon(icon);
-        pushButton_2->setIconSize(QSize(90, 90));
-        label_2 = new QLabel(frame_2);
-        label_2->setObjectName("label_2");
-        label_2->setGeometry(QRect(0, 160, 801, 151));
-        label_2->setPixmap(QPixmap(QString::fromUtf8("img/voice.png")));
-        label_2->setScaledContents(true);
-        label_2->setWordWrap(false);
-        label_2->setOpenExternalLinks(false);
-        label_2->raise();
-        pushButton_2->raise();
+        RecordButton->setIcon(icon);
+        RecordButton->setIconSize(QSize(90, 90));
+        VoiceLabel = new QLabel(frame_2);
+        VoiceLabel->setObjectName("VoiceLabel");
+        VoiceLabel->setGeometry(QRect(0, 160, 801, 151));
+        VoiceLabel->setPixmap(QPixmap(QString::fromUtf8("img/voice.png")));
+        VoiceLabel->setScaledContents(true);
+        VoiceLabel->setWordWrap(false);
+        VoiceLabel->setOpenExternalLinks(false);
+        VoiceLabel->raise();
+        RecordButton->raise();
 
         verticalLayout->addWidget(frame_2);
 
@@ -163,13 +165,13 @@ public:
     void retranslateUi(QMainWindow *GuestMainWindow)
     {
         GuestMainWindow->setWindowTitle(QCoreApplication::translate("GuestMainWindow", "YourVoice", nullptr));
-        pushButton->setText(QCoreApplication::translate("GuestMainWindow", "\320\222\320\276\320\271\321\202\320\270", nullptr));
-        label->setText(QString());
-        pushButton_3->setText(QCoreApplication::translate("GuestMainWindow", "btn_1", nullptr));
-        pushButton_4->setText(QCoreApplication::translate("GuestMainWindow", "btn_2", nullptr));
-        pushButton_5->setText(QCoreApplication::translate("GuestMainWindow", "btn_3", nullptr));
-        pushButton_2->setText(QString());
-        label_2->setText(QString());
+        LogInButton->setText(QCoreApplication::translate("GuestMainWindow", "\320\222\320\276\320\271\321\202\320\270", nullptr));
+        LogoLabel->setText(QString());
+        EmptyButton1->setText(QCoreApplication::translate("GuestMainWindow", "btn_1", nullptr));
+        EmptyButton2->setText(QCoreApplication::translate("GuestMainWindow", "btn_2", nullptr));
+        EmptyButton3->setText(QCoreApplication::translate("GuestMainWindow", "btn_3", nullptr));
+        RecordButton->setText(QString());
+        VoiceLabel->setText(QString());
     } // retranslateUi
 
 };

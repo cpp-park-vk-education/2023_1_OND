@@ -15,7 +15,11 @@ public:
     GuestMainWindow(QWidget *parent = nullptr);
     ~GuestMainWindow();
 
+private slots:
+    void on_RecordButton_clicked();
+
 private:
     Ui::GuestMainWindow *ui;
+    bool isRecording;
 };
 #endif // GUESTMAINWINDOW_H
