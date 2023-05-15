@@ -15,12 +15,14 @@ public:
 class ChatGPT: public APIChatGPT {
 private:
     std::shared_ptr <IClientHTTP> client_;
+    std::vector <std::string> tokens_;
 
     void sendQuestion(const std::string & token, const std::string & question, std::string & response);
     void fetchAnswer(const std::string & response, std::string & answer);
 
 public:
-    ChatGPT(std::shared_ptr<IClientHTTP> client);
+    ChatGPT(std::shared_ptr<IClientHTTP> client,
+            const std::vector <std::string> & tokens);
 
     void ask(const std::string & token,
              const std::string & question,

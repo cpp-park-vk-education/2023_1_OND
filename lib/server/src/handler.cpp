@@ -7,7 +7,16 @@ void UserRegistration::serve(WriterSPtr w, ReaderSPtr r) {}
 
 
 GetUserData::GetUserData(DatabaseSPtr db): db_(db) {}
-void GetUserData::serve(WriterSPtr w, ReaderSPtr r) {}
+void GetUserData::serve(WriterSPtr w, ReaderSPtr r) {
+    std::string str;
+    while (true) {
+      r->read(str);
+      if (str == "end") {
+         break;
+      }
+      std::cout << str << std::endl;
+    }
+}
 
 
 ChangeUserData::ChangeUserData(DatabaseSPtr db): db_(db) {}

@@ -3,9 +3,9 @@
 
 TEST(ChatGPTTest, AskQuestion) {
     std::shared_ptr<MockClienHTTP> client = std::make_shared<MockClienHTTP>();
-    ChatGPT gpt(client);
+    ChatGPT gpt(client, {"token-sdf2"});
     std::string response;
-    Header header{{"Authorization", "Bearer token"},
+    Header header{{"Authorization", "Bearer token-sdf2"},
                   {"Content-Type", "application/json"}};
     EXPECT_CALL(*client, post(header,
         "{\"model\": \"gpt-3.5-turbo\",\"messages\": [{\"role\": \
