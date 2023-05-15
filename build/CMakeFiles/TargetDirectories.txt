@@ -1,4 +1,0 @@
-/Users/muslimitsuhide/2023_1_OND/build/CMakeFiles/yourvoice.dir
-/Users/muslimitsuhide/2023_1_OND/build/CMakeFiles/test.dir
-/Users/muslimitsuhide/2023_1_OND/build/CMakeFiles/edit_cache.dir
-/Users/muslimitsuhide/2023_1_OND/build/CMakeFiles/rebuild_cache.dir
