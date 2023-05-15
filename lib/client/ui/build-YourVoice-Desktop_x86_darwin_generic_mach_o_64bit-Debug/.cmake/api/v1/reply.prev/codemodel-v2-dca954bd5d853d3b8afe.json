@@ -1,0 +1,79 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-b4aa754d3f37d61dfa1a.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "YourVoice",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "YourVoice::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-YourVoice-Debug-545c48ce417654d55b45.json",
+					"name" : "YourVoice",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "YourVoice_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-YourVoice_autogen-Debug-b38176b069821ebe2047.json",
+					"name" : "YourVoice_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "YourVoice_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-YourVoice_autogen_timestamp_deps-Debug-bce4fe649291cff239b1.json",
+					"name" : "YourVoice_autogen_timestamp_deps",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/Users/muslimitsuhide/2023_1_OND/lib/client/ui/build-YourVoice-Desktop_x86_darwin_generic_mach_o_64bit-Debug",
+		"source" : "/Users/muslimitsuhide/2023_1_OND/lib/client/ui/YourVoice"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}

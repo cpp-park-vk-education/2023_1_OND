@@ -217,6 +217,9 @@ QPushButton:hover {
        <enum>QFrame::Raised</enum>
       </property>
       <widget class="QPushButton" name="RecordButton">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
        <property name="geometry">
         <rect>
          <x>340</x>
@@ -225,12 +228,41 @@ QPushButton:hover {
          <height>91</height>
         </rect>
        </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="mouseTracking">
+        <bool>true</bool>
+       </property>
+       <property name="tabletTracking">
+        <bool>false</bool>
+       </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
        <property name="styleSheet">
         <string notr="true">QPushButton {
     background-color:  none;
     border: none;
 }
-</string>
+
+QPushButton:hover {
+    border-radius: 45px;
+    min-height: 50px;
+    max-height: 50px;
+    min-width: 50px;
+    max-width: 50px;
+    background-color: rgba(200,68,129, 0.5);
+}
+
+QPushButton:pressed {
+    border-radius: 45px;
+    min-height: 50px;
+    max-height: 50px;
+    min-width: 50px;
+    max-width: 50px;
+    background-color: rgba(125,245,249, 0.5);
+}</string>
        </property>
        <property name="text">
         <string/>
@@ -244,6 +276,12 @@ QPushButton:hover {
          <width>90</width>
          <height>90</height>
         </size>
+       </property>
+       <property name="checkable">
+        <bool>false</bool>
+       </property>
+       <property name="checked">
+        <bool>false</bool>
        </property>
       </widget>
       <widget class="QLabel" name="VoiceLabel">

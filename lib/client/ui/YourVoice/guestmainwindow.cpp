@@ -17,7 +17,6 @@ GuestMainWindow::GuestMainWindow(QWidget *parent) : QMainWindow(parent), ui(new 
     QIcon buttonIcon("/Users/muslimitsuhide/2023_1_OND/lib/client/ui/YourVoice/img/voice_btn.png"); //need to fix the reference to relative
     ui->RecordButton->setIcon(buttonIcon);
     ui->RecordButton->setIconSize(QSize(90, 90));
-
 }
 
 GuestMainWindow::~GuestMainWindow()
