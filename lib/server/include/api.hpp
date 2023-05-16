@@ -38,7 +38,7 @@ public:
 
 class CMUSphinx: public APISphinx {
 private:
-    void trans(const std::string & voice_question, const std::string & text_question);
+    void trans(const std::string & voice_question, std::string & text_question);
 
 public:
     CMUSphinx();

@@ -4,12 +4,14 @@ Session::Session(tcp::socket socket, std::shared_ptr <Handler> handler):
     socket_(std::move(socket)), handler_(handler) {}
 
 void Session::start() {
+    std::cout << "START" << std::endl;
     async_read();
 }
 
 std::size_t Session::read(std::string & str) {
     str.clear();
-    read_buf_ >> str;
+    // read_buf_ >> str;
+    std::getline(read_buf_, str);
     return str.size();
 }
 

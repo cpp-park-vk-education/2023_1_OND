@@ -5,7 +5,6 @@ ServeMux::ServeMux(): m_(std::map<std::string, std::unique_ptr<Handler>>()) {}
 void ServeMux::serve(WriterSPtr w, ReaderSPtr r) {
     std::string target;
     r->read(target);
-    std::cout << target << std::endl;
     if (m_.find(target) == m_.end()) {
          w->write("target not found\nend\n");
     } else {

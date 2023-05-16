@@ -42,10 +42,12 @@ void Ask::serve(WriterSPtr w, ReaderSPtr r) {
       }
       voice_question += str;
    }
-   sphinx_->trans(voice_question, str);
+   std::cout << voice_question << std::endl;
+   // sphinx_->trans(voice_question, str);
    std::string answer_text;
-   gpt_->ask("", str, answer_text);
-   w->write(answer_text + "\nend\n");
+   gpt_->ask("", voice_question, answer_text);
+   std::cout << answer_text << std::endl;
+   // w->write(answer_text + "\nend\n");
 }
 
 
