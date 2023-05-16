@@ -31,7 +31,22 @@ Ask::Ask(DatabaseSPtr db, std::shared_ptr<APIChatGPT> gpt,
          std::shared_ptr<APISphinx> sphinx,
          std::shared_ptr<APIFestival> festival):
             db_(db), gpt_(gpt), sphinx_(sphinx), festival_(festival) {}
-void Ask::serve(WriterSPtr w, ReaderSPtr r) {}
+
+void Ask::serve(WriterSPtr w, ReaderSPtr r) {
+   std::string str;
+   std::string voice_question;
+   while (true) {
+      r->read(str);
+      if (str == "end") {
+         break;
+      }
+      voice_question += str;
+   }
+   sphinx_->trans(voice_question, str);
+   std::string answer_text;
+   gpt_->ask("", str, answer_text);
+   w->write(answer_text + "\nend\n");
+}
 
 
 GetHistory::GetHistory(DatabaseSPtr db): db_(db) {}
