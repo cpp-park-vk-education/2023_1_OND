@@ -3,11 +3,11 @@
 #include <fstream>
 #include <sstream>
 
-ChatGPT::ChatGPT(std::shared_ptr<IClientHTTP> client,
+CMUSphinx::CMUSphinx(std::shared_ptr<IClientHTTP> client,
                  const std::string & voice_question, std::string & text_question):voice_question_(voice_question),
                                                                                   text_question_(text_question){}
 
-void APISphinx::trans(const std::string & voice_question, std::string & text_question){
+void CMUSphinx::trans(const std::string & voice_question, std::string & text_question){
     // Создаем поток данных из входной строки
     std::stringstream audioStream(voice_question);
 
