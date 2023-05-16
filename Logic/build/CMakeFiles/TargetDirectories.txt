@@ -1,4 +1,0 @@
-/home/khristina/repos/YourVoice/Client/Logic/build/CMakeFiles/helloworld.dir
-/home/khristina/repos/YourVoice/Client/Logic/build/CMakeFiles/edit_cache.dir
-/home/khristina/repos/YourVoice/Client/Logic/build/CMakeFiles/rebuild_cache.dir
-/home/khristina/repos/YourVoice/Client/Logic/build/CMakeFiles/helloworld_autogen.dir
