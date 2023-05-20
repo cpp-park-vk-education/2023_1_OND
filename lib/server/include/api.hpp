@@ -29,19 +29,19 @@ public:
              std::string & answer) override;
 };
 
-
 class APISphinx {
 public:
     virtual ~APISphinx() {}
     virtual void trans(const std::string & voice_question, std::string & text_question) = 0;
 };
 
-class CMUSphinx: public APISphinx {
+class Sphinx: public APISphinx {
 private:
-    void trans(const std::string & voice_question, std::string & text_question);
+    void trans(const std::string & voice_question, const std::string & text_question);
 
 public:
-    CMUSphinx();
+    Sphinx(std::shared_ptr<IClientHTTP> client,
+           const std::vector <std::string> & tokens);
 
     void trans(const std::string & voice_question,
                const std::string & text_question);
