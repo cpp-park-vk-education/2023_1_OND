@@ -24,11 +24,11 @@ int main() {
         std::shared_ptr<ClientHTTP> p = std::make_shared<ClientHTTP>();
         std::shared_ptr<APIChatGPT> gpt = std::make_shared<ChatGPT>(p, tokens);
         DatabaseSPtr db = nullptr;
-        // std::shared_ptr<APISphinx> sphinx = std::make_shared<CMUSphinx>();
+        std::shared_ptr<APISphinx> sphinx = std::make_shared<CMUSphinx>();
         boost::asio::io_context io_context;
         ServerTCP s(io_context, 8001);
         std::shared_ptr <ServeMux>  router = std::make_shared<ServeMux>();
-        router->addHandle("ask", std::make_unique<Ask>(db, gpt, nullptr, nullptr));
+        router->addHandle("ask", std::make_unique<Ask>(db, gpt, sphinx, nullptr));
         s.setHandler(router);
         io_context.run();
     } catch (std::exception& e) {
