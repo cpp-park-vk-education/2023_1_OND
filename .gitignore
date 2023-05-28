@@ -1,6 +1,5 @@
 /build
-/build-YourVoice-Desktop_x86_darwin_generic_mach_o_64bit-Debug
-/build-ui-Desktop_x86_darwin_generic_mach_o_64bit-Debug
+/build-YourVoice-Qt_6_5_1_for_macOS-Debug
 
 *~
 *.autosave
