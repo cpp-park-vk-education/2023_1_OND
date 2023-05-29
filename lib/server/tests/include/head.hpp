@@ -92,13 +92,13 @@ public:
                      std::string & answer), (override));
 };
 
-class MockSphinx: public APISphinx {
+class MockSphinx: public IASR {
 public:
     MOCK_METHOD(void, trans, (const std::string & voice_question,
                               std::string & text_question), (override));
 };
 
-class MockFestival: public APIFestival {
+class MockFestival: public ITTS {
 public:
     MOCK_METHOD(void, speak, (const std::string & text_answer,
             std::string & voice_answer), (override));

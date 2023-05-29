@@ -40,12 +40,12 @@ class Ask: public Handler {
 private:
     DatabaseSPtr db_;
     std::shared_ptr <APIChatGPT> gpt_;
-    std::shared_ptr <APISphinx> sphinx_;
-    std::shared_ptr <APIFestival> festival_;
+    std::shared_ptr <IASR> asr_;
+    std::shared_ptr <ITTS> tts_;
 public:
     Ask(DatabaseSPtr db, std::shared_ptr<APIChatGPT> gpt,
-        std::shared_ptr<APISphinx> sphinx,
-        std::shared_ptr<APIFestival> festival);
+        std::shared_ptr<IASR> asr_,
+        std::shared_ptr<ITTS> tts_);
     void serve(WriterSPtr w, ReaderSPtr r) override;
 };
 

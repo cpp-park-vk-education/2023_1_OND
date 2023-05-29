@@ -29,26 +29,61 @@ public:
              std::string & answer) override;
 };
 
-class APISphinx {
+class IASR {
 public:
-    virtual ~APISphinx() {}
+    virtual ~IASR() {}
     virtual void trans(const std::string & voice_question, std::string & text_question) = 0;
 };
 
-class Sphinx: public APISphinx {
-private:
-    void trans(const std::string & voice_question, const std::string & text_question);
-
+class ITTS {
 public:
-    Sphinx(std::shared_ptr<IClientHTTP> client,
-           const std::vector <std::string> & tokens);
-
-    void trans(const std::string & voice_question,
-               const std::string & text_question);
+    virtual ~ITTS() {}
+    virtual void speak(const std::string & text_answer, std::string & voice_answer) = 0;
 };
 
-class APIFestival {
+class TextToSpeech: public ITTS {
+private:
+    std::shared_ptr <IClientHTTP> client_;
+    std::string key_;
+
 public:
-    virtual ~APIFestival() {}
-    virtual void speak(const std::string & text_answer, std::string & voice_answer) = 0;
+    TextToSpeech(std::shared_ptr<IClientHTTP> client, const std::string & key);
+    void speak(const std::string & text_answer, std::string & voice_answer) override;
+};
+
+
+
+class VkAsr: public IASR {
+public:
+    std::shared_ptr <IClientHTTP> client_;
+    std::string token_;
+
+public:
+    VkAsr(std::shared_ptr<IClientHTTP> client, const std::string & token);
+
+    void trans(const std::string & voice_question, std::string & text_question) override;
+};
+
+
+class YandexTTS: public ITTS {
+private:
+    std::shared_ptr <IClientHTTP> client_;
+    std::string oauth_;
+    std::string folder_id_;
+
+public:
+    YandexTTS(std::shared_ptr<IClientHTTP> client, 
+        const std::string & oauth, const std::string & folder_id);
+    void speak(const std::string & text_answer, std::string & voice_answer) override;
+};
+
+
+class VkTts: public ITTS {
+private:
+    std::shared_ptr <IClientHTTP> client_;
+    std::string token_;
+
+public:
+    VkTts(const std::shared_ptr<IClientHTTP> client, const std::string & token);
+    void speak(const std::string & text_answer, std::string & voice_answer) override;
 };

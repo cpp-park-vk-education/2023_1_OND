@@ -72,3 +72,8 @@ CMakeLists.txt.user*
 # --------
 *.dll
 *.exe
+data/
+.vscode/
+lib/sphinx/
+lib/cpr/
+lib/json/

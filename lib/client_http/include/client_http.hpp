@@ -14,3 +14,8 @@ class ClientHTTP: public IClientHTTP {
 public:
     int post(Header & headers, const std::string & body, const std::string & url, std::string & response) override;
 };
+
+
+std::string Get(const std::string & u);
+
+std::string UrlEncode(const std::string & text);

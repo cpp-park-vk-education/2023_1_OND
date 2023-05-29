@@ -12,7 +12,8 @@ endif()
 add_subdirectory(lib/server)
 add_subdirectory(lib/client_http)
 
+include_directories(include)
 
-add_executable(${PROJECT_NAME} src/main.cpp)
+add_executable(${PROJECT_NAME} src/main.cpp src/read_tokens.cpp)
 
-target_link_libraries(${PROJECT_NAME} server -pthread -Wall -Werror -Wpedantic -Wextra)
+target_link_libraries(${PROJECT_NAME} server -pthread -lboost_serialization -lboost_system -Wall -Werror -Wpedantic -Wextra)
