@@ -66,8 +66,8 @@ void GuestMainWindow::on_VoiceBox_activated(int index)
             break;
 
         case 1:
-        //формирование запроса с параметром голоса Жанна
-        break;
+            //формирование запроса с параметром голоса Жанна
+            break;
 
         case 2:
             //формирование запроса с параметром голоса Петр
