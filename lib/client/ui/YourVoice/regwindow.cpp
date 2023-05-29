@@ -5,7 +5,7 @@ RegWindow::RegWindow(QWidget *parent) : QDialog(parent), ui(new Ui::RegWindow)
 {
     ui->setupUi(this);
     QPixmap logo3;
-    logo3.load("/Users/muslimitsuhide/2023_1_OND/lib/client/ui/YourVoice/img/logo.png"); //need to fix the reference to relative
+    logo3.load(":/logo.png");
     ui->Logo3->setPixmap(logo3);
 }
 

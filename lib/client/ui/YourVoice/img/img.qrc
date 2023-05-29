@@ -1,7 +1,11 @@
 <!DOCTYPE RCC><RCC version="1.0">
     <qresource prefix="/">
         <file>logo.png</file>
+        <file>photo1.png</file>
+        <file>photo2.png</file>
+        <file>photo3.png</file>
+        <file>photo4.png</file>
         <file>voice_btn.png</file>
-        <file>voice.png</file>
+        <file>voice.png</file>  
     </qresource>
 </RCC>

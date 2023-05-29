@@ -8,7 +8,7 @@ AuthWindow::AuthWindow(QWidget *parent) : QDialog(parent), ui(new Ui::AuthWindow
 {
     ui->setupUi(this);
     QPixmap logo2;
-    logo2.load("/Users/muslimitsuhide/2023_1_OND/lib/client/ui/YourVoice/img/logo.png"); //need to fix the reference to relative
+    logo2.load(":/logo.png");
     ui->Logo2->setPixmap(logo2);
 
     //regwindow = new RegWindow();

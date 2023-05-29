@@ -7,14 +7,14 @@ GuestMainWindow::GuestMainWindow(QWidget *parent) : QMainWindow(parent), ui(new 
 {
     ui->setupUi(this);
     QPixmap logo;
-    logo.load("/Users/muslimitsuhide/2023_1_OND/lib/client/ui/YourVoice/img/logo.png"); //need to fix the reference to relative
+    logo.load(":/logo.png");
     ui->Logo->setPixmap(logo);
 
     QPixmap voicelogo;
-    voicelogo.load("/Users/muslimitsuhide/2023_1_OND/lib/client/ui/YourVoice/img/voice.png"); //need to fix the reference to relative
+    voicelogo.load(":/voice.png");
     ui->VoiceLogo->setPixmap(voicelogo);
 
-    QIcon buttonIcon("/Users/muslimitsuhide/2023_1_OND/lib/client/ui/YourVoice/img/voice_btn.png"); //need to fix the reference to relative
+    QIcon buttonIcon(":/voice_btn.png");
     ui->RecordBtn->setIcon(buttonIcon);
     ui->RecordBtn->setIconSize(QSize(120, 120));
 
