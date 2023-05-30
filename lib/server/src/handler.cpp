@@ -3,6 +3,7 @@
 #include <iostream>
 #include <sstream>
 #include <chrono>
+#include "package.hpp"
 
 UserRegistration::UserRegistration(DatabaseSPtr db): db_(db) {}
 void UserRegistration::serve(WriterSPtr w, ReaderSPtr r) {}
@@ -11,14 +12,14 @@ void UserRegistration::serve(WriterSPtr w, ReaderSPtr r) {}
 
 GetUserData::GetUserData(DatabaseSPtr db): db_(db) {}
 void GetUserData::serve(WriterSPtr w, ReaderSPtr r) {
-    std::string str;
-    while (true) {
-      r->read(str);
-      if (str == "end") {
-         break;
-      }
-      std::cout << str << std::endl;
-    }
+   //  std::string str;
+   //  while (true) {
+   //    r->read(str);
+   //    if (str == "end") {
+   //       break;
+   //    }
+   //    std::cout << str << std::endl;
+   //  }
 }
 
 
@@ -38,17 +39,18 @@ Ask::Ask(DatabaseSPtr db, std::shared_ptr<APIChatGPT> gpt,
 void Ask::serve(WriterSPtr w, ReaderSPtr r) {
    std::cout << "----ASK START-----" << std::endl;
 
-   std::string question_voice;
-   r->read(question_voice);
+   Package pkg;
+   r->read(pkg);
+   // std::cout << "ITAK" << question_voice << std::endl;
    std::ofstream out("question.wav");
-   out.write(question_voice.c_str(), question_voice.size());
-   std::cout << question_voice.size() << std::endl;
+   out.write(pkg.voice.c_str(), pkg.voice.size());
+   std::cout << pkg.voice.size() << std::endl;
 
    std::cout << "Вопрос сохранён" << std::endl;
 
    std::string question_text;
    auto begin = std::chrono::steady_clock::now();
-   asr_->trans(question_voice, question_text);
+   asr_->trans(pkg.voice, question_text);
    auto end = std::chrono::steady_clock::now();
    auto elapsed_ms = std::chrono::duration_cast<std::chrono::milliseconds>(end - begin);
    std::cout << "The time: " << elapsed_ms.count() << " ms\n";
@@ -110,7 +112,12 @@ void Ask::serve(WriterSPtr w, ReaderSPtr r) {
    std::cout << "The time: " << elapsed_ms.count() << " ms\n";
 
    std::cout << "получена озвучка: " << data.size() << std::endl;
-   w->write(data);
+
+   Package npkg;
+   npkg.finish = true;
+   npkg.text = answer;
+   npkg.voice = data;
+   w->write(npkg);
    std::cout << "отправлена озвучка" << std::endl;
    std::cout << "ASK END" << std::endl;
    std::cout << "==================" << std::endl;

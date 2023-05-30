@@ -1,16 +1,17 @@
 #pragma once
 #include <memory>
+#include "package.hpp"
 
 class Writer {
 public:
     virtual ~Writer() {}
-    virtual std::size_t write(const std::string & message) = 0;
+    virtual std::size_t write(const Package & pkg) = 0;
 };
 
 class Reader {
 public:
     virtual ~Reader() {}
-    virtual std::size_t read(std::string & r) = 0;
+    virtual std::size_t read(Package & r) = 0;
 };
 
 using WriterSPtr = std::shared_ptr<Writer>;

@@ -3,6 +3,11 @@
 
 ServeMux::ServeMux(): m_(std::map<std::string, std::unique_ptr<Handler>>()) {}
 void ServeMux::serve(WriterSPtr w, ReaderSPtr r) {
+    // std::string mes;
+    // r->read(mes);
+    // std::cout << "Mes1: " << mes << std::endl;
+    // r->read(mes);
+    // std::cout << "Mes2: " << mes << std::endl;
     m_["ask"]->serve(w, r);
     // std::string target;
     // r->read(target);
