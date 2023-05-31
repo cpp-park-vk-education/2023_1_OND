@@ -43,10 +43,13 @@ private:
     std::shared_ptr <APIChatGPT> gpt_;
     std::shared_ptr <IASR> asr_;
     std::vector <std::shared_ptr <ITTS>> tts_;
+    std::string token_gpt_;
+
 public:
     Ask(DatabaseSPtr db, std::shared_ptr<APIChatGPT> gpt,
         std::shared_ptr<IASR> asr_,
-        const std::vector <std::shared_ptr<ITTS>> & tts_);
+        const std::vector <std::shared_ptr<ITTS>> & tts_,
+        const std::string & token_gpt);
     void serve(WriterSPtr w, ReaderSPtr r) override;
 };
 

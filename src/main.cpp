@@ -46,7 +46,7 @@ int main() {
         // tts2 - SpeechKit (Yandex)
         // tts3 - TextToSpeech (texttospeech.ru)
         std::vector <std::shared_ptr<ITTS>> ttss{tts1, tts2, tts3};
-        router->addHandle("ask", std::make_unique<Ask>(db, gpt, asr, ttss));
+        router->addHandle("ask", std::make_unique<Ask>(db, gpt, asr, ttss, tokens[0]));
         s.setHandler(router);
         io_context.run();
     } catch (std::exception& e) {

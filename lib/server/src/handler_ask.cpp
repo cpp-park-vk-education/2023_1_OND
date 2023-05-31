@@ -59,7 +59,8 @@ public:
         char const* port,
         char const* target,
         int version,
-        const std::string & question)
+        const std::string & question,
+        const std::string & token_gpt)
     {
         std::cout << host << " " << port << " " << target << std::endl;
         if(!SSL_set_tlsext_host_name(stream_.native_handle(), host))
@@ -80,7 +81,7 @@ public:
         req_.target(target);
         req_.set(http::field::host, host);
         req_.set(http::field::user_agent, BOOST_BEAST_VERSION_STRING);
-        req_.set(http::field::authorization, "Bearer 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");
+        req_.set(http::field::authorization, "Bearer " + token_gpt);
         req_.set(http::field::content_type, "application/json");
         std::string bodyd = "{\"model\": \"gpt-3.5-turbo\",\
 \"messages\": [{\"role\": \"user\", \"content\": \"" + question + "\"}], \"stream\": true}";
@@ -180,7 +181,9 @@ public:
 };
 
 
-void ask_gpt(const std::string & question, std::shared_ptr<ITTS> tts, WriterSPtr w, const std::string & voice) {
+void ask_gpt(const std::string & question, std::shared_ptr<ITTS> tts,
+        WriterSPtr w, const std::string & voice,
+        const std::string & token_gpt) {
     std::cout << "adk_gpt: You ask the gpt" << std::endl;
     auto const host = "api.openai.com";
     auto const port = "443";
@@ -194,7 +197,8 @@ void ask_gpt(const std::string & question, std::shared_ptr<ITTS> tts, WriterSPtr
 
     ctx.set_verify_mode(ssl::verify_peer);
 
-    std::make_shared<session>(ioc, ctx, tts, w, voice)->run(host, port, target, version, question);
+    std::make_shared<session>(ioc, ctx, tts, w, voice)->run(host, port, 
+        target, version, question, token_gpt);
 
     ioc.run();
 }
@@ -202,8 +206,10 @@ void ask_gpt(const std::string & question, std::shared_ptr<ITTS> tts, WriterSPtr
 
 Ask::Ask(DatabaseSPtr db, std::shared_ptr<APIChatGPT> gpt,
          std::shared_ptr<IASR> asr,
-         const std::vector<std::shared_ptr<ITTS>> & tts):
-            db_(db), gpt_(gpt), asr_(asr), tts_(tts) {}
+         const std::vector<std::shared_ptr<ITTS>> & tts,
+         const std::string & token_gpt):
+            db_(db), gpt_(gpt), asr_(asr), tts_(tts),
+            token_gpt_(token_gpt) {}
 
 void Ask::serve(WriterSPtr w, ReaderSPtr r) {
    std::cout << "----ASK START-----" << std::endl;
@@ -236,7 +242,7 @@ void Ask::serve(WriterSPtr w, ReaderSPtr r) {
    std::string f = pkg.text;
    int tts_num = std::stoi(pkg.param["tts"]);
    std::cout << "NUM " << tts_num << std::endl;
-   ask_gpt(question_text, tts_[tts_num], w, pkg.param["voice"]);
+   ask_gpt(question_text, tts_[tts_num], w, pkg.param["voice"], token_gpt_);
    std::cout << "you got answer" << std::endl;
 
 //    std::cout << "Спросим у ChatGPT" << std::endl;
