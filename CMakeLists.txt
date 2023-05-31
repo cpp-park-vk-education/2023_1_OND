@@ -16,4 +16,7 @@ include_directories(include)
 
 add_executable(${PROJECT_NAME} src/main.cpp src/read_tokens.cpp)
 
-target_link_libraries(${PROJECT_NAME} server -pthread -lboost_serialization -lboost_wserialization -lboost_system -lboost_iostreams -Wall -Werror -Wpedantic -Wextra)
+target_link_libraries(${PROJECT_NAME} server -pthread -lboost_serialization
+                                            -lboost_wserialization -lboost_system 
+                                            -lboost_iostreams -lssl -lcrypto 
+                                            -Wall -Werror -Wpedantic -Wextra)
