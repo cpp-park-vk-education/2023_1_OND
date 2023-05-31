@@ -38,7 +38,8 @@ public:
 class ITTS {
 public:
     virtual ~ITTS() {}
-    virtual void speak(const std::string & text_answer, std::string & voice_answer) = 0;
+    virtual void speak(const std::string & text_answer, const std::string & voice,
+        std::string & voice_answer) = 0;
 };
 
 class TextToSpeech: public ITTS {
@@ -48,7 +49,8 @@ private:
 
 public:
     TextToSpeech(std::shared_ptr<IClientHTTP> client, const std::string & key);
-    void speak(const std::string & text_answer, std::string & voice_answer) override;
+    void speak(const std::string & text_answer, 
+        const std::string & voice, std::string & voice_answer) override;
 };
 
 
@@ -74,7 +76,8 @@ private:
 public:
     YandexTTS(std::shared_ptr<IClientHTTP> client, 
         const std::string & oauth, const std::string & folder_id);
-    void speak(const std::string & text_answer, std::string & voice_answer) override;
+    void speak(const std::string & text_answer, 
+        const std::string & voice, std::string & voice_answer) override;
 };
 
 
@@ -85,5 +88,6 @@ private:
 
 public:
     VkTts(const std::shared_ptr<IClientHTTP> client, const std::string & token);
-    void speak(const std::string & text_answer, std::string & voice_answer) override;
+    void speak(const std::string & text_answer, 
+        const std::string & voice, std::string & voice_answer) override;
 };

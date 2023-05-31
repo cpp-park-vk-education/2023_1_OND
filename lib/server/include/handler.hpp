@@ -1,5 +1,6 @@
 #pragma once
 
+#include <vector>
 #include "interfaces.hpp"
 #include "interface_db.hpp"
 #include "api.hpp"
@@ -41,11 +42,11 @@ private:
     DatabaseSPtr db_;
     std::shared_ptr <APIChatGPT> gpt_;
     std::shared_ptr <IASR> asr_;
-    std::shared_ptr <ITTS> tts_;
+    std::vector <std::shared_ptr <ITTS>> tts_;
 public:
     Ask(DatabaseSPtr db, std::shared_ptr<APIChatGPT> gpt,
         std::shared_ptr<IASR> asr_,
-        std::shared_ptr<ITTS> tts_);
+        const std::vector <std::shared_ptr<ITTS>> & tts_);
     void serve(WriterSPtr w, ReaderSPtr r) override;
 };
 

@@ -33,7 +33,7 @@ void RemoveUser::serve(WriterSPtr w, ReaderSPtr r) {}
 
 Ask::Ask(DatabaseSPtr db, std::shared_ptr<APIChatGPT> gpt,
          std::shared_ptr<IASR> asr,
-         std::shared_ptr<ITTS> tts):
+         const std::vector<std::shared_ptr<ITTS>> & tts):
             db_(db), gpt_(gpt), asr_(asr), tts_(tts) {}
 
 void Ask::serve(WriterSPtr w, ReaderSPtr r) {
@@ -102,8 +102,9 @@ void Ask::serve(WriterSPtr w, ReaderSPtr r) {
 // Однако, возникают новые проблемы: информационная зависимость, нарушение личной жизни, манипуляции сознанием и дезинформация. Люди приобретаются электронными гаджетами, забывая оживительные эмоции, которые приносит природа и общение с другими людьми. Мы должны научиться использовать технологии в меру, чтобы они служили нам, а не мы их.\
 // Более того, необходимо понимать, что технический прогресс не прекращается, и в будущем нас ждут еще более серьезные и глобальные проблемы. Решение этих проблем требует комплексного подхода и участия каждого из нас. Надо смотреть вперед, не ограничиваться своими текущими нуждами и желаниями.\
 // В целом, жизнь не стоит на месте, и это радует. Но мы должны понимать, какая ответственность ложится на нас, чтобы мы могли жить в мире и гармонии со своим окружением. Техника – это инструмент, который помогает нам преодолевать трудности, и эпоха информационных технологий – это новое измерение нашей жизни. Но в первую очередь, мы обязаны помнить, что нам нужна забота, здоровье и общение в нашем ноу-хау мире.";
-
-   tts_->speak(answer, data);
+   int tts_num = std::stoi(pkg.param["tts"]);
+   std::cout << "NUM " << tts_num << std::endl;
+   tts_[tts_num]->speak(answer, pkg.param["voice"], data);
 
 
    end = std::chrono::steady_clock::now();
@@ -117,6 +118,7 @@ void Ask::serve(WriterSPtr w, ReaderSPtr r) {
    npkg.finish = true;
    npkg.text = answer;
    npkg.voice = data;
+   npkg.param["tts"] = pkg.param["tts"];
    w->write(npkg);
    std::cout << "отправлена озвучка" << std::endl;
    std::cout << "ASK END" << std::endl;

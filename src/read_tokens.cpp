@@ -35,7 +35,7 @@ void read_token_for_speech_kit(std::string & OAuth, std::string & folder_id) {
 }
 
 void read_key_for_text_to_speech(std::string & key) {
-    std::ifstream fin("../data/speech_kit.txt");
+    std::ifstream fin("../data/text_to_speech.txt");
     if (!fin.is_open()) {
         throw std::logic_error("Не удалось открыть файл с ключом для SpeechToText!");
     }
