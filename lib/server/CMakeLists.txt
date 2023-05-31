@@ -6,11 +6,9 @@ add_library(server src/server-tcp.cpp
                    src/text_to_speech.cpp
                    src/vk_asr.cpp
                    src/yandex_tts.cpp
-                   src/vk_tts.cpp)
-                  #  src/sphinx.cpp)
+                   src/vk_tts.cpp
+                   src/handler_ask.cpp)
 
-# include_directories(${PocketSphinx_INCLUDE_DIRS})
-# target_link_libraries(server ${PocketSphinx_LIBRARIES})
 target_include_directories(server PUBLIC include)
 target_include_directories(server PRIVATE ../json/include)
 target_link_libraries(server PUBLIC client_http)
