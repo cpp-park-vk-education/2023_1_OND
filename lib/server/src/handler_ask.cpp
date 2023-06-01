@@ -154,9 +154,17 @@ public:
             if (delta == "." || delta == "\n" || delta == "," && text_.str().size() > 20 || end) {
                 std::cout << "Уже можно отправлять сдедующее: " << text_.str() << std::endl;
                 Package p;
-                tts_->speak(text_.str(), voice_, p.voice);
-                p.finish = end;
+                std::string voice;
+                tts_->speak(text_.str(), voice_, voice);
+                p.voice = voice;
+                std::cout << p.voice.size() << "===" <<voice.size() << std::endl;
+                if (end) {
+                    p.text = "end";
+                } else {
+                    p.text = "neend";
+                }
                 p.param["tts"] = "0";
+                p.finish = end;
                 w_->write(p);
                 text_ = std::ostringstream();
             }

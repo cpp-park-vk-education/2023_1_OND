@@ -4,6 +4,7 @@
 #include <iomanip>
 #include <fstream>
 #include "package.hpp"
+#include <unistd.h>
 
 Session::Session(tcp::socket socket, std::shared_ptr <Handler> handler):
     socket_(std::move(socket)), handler_(handler) {}
@@ -80,7 +81,6 @@ std::size_t Session::write(const Package & pkg) {
 
         pkgs_on_write_.push(pkg);
         m_async_write();
-
         // if (queue_on_write_.empty()) {
         //     queue_on_write_.push(str);
         //     async_write();
