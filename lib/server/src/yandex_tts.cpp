@@ -13,16 +13,20 @@ void YandexTTS::speak(const std::string& text_answer, const std::string & voice,
     std::string res;
     Header head;
     client_->post(head, "{\"yandexPassportOauthToken\":\"" + oauth_ + "\"}", url, res);
-    json resJSON = json::parse(res);
-    std::string IAM_token = resJSON["iamToken"];
-    Header header{{"Authorization", "Bearer " + IAM_token}};
-    url = "https://tts.api.cloud.yandex.net/speech/v1/tts:synthesize";
-    url += "?folderId=" + folder_id_;
-    url += "&text=" + UrlEncode(text_answer);
-    url += "&format=lpcm";
-    url += "&sampleRateHertz=48000";
-    url += "&voice=" + UrlEncode(voice);
-    std::string response;
-    client_->post(header, "", url, response);
-    voice_answer = response;
+    try {
+        json resJSON = json::parse(res);
+        std::string IAM_token = resJSON["iamToken"];
+        Header header{{"Authorization", "Bearer " + IAM_token}};
+        url = "https://tts.api.cloud.yandex.net/speech/v1/tts:synthesize";
+        url += "?folderId=" + folder_id_;
+        url += "&text=" + UrlEncode(text_answer);
+        url += "&format=lpcm";
+        url += "&sampleRateHertz=48000";
+        url += "&voice=" + UrlEncode(voice);
+        std::string response;
+        client_->post(header, "", url, response);
+        voice_answer = response;
+    } catch (std::exception & e) {
+        std::cerr << "Ошибка синтеза речи speechKit: " << e.what() << std::endl;
+    }
 }

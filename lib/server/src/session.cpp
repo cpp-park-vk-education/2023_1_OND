@@ -1,134 +1,103 @@
 #include "session.hpp"
-#include <boost/bind/bind.hpp>
-#include <iostream>
-#include <iomanip>
-#include <fstream>
 #include "package.hpp"
-#include <unistd.h>
 
 Session::Session(tcp::socket socket, std::shared_ptr <Handler> handler):
     socket_(std::move(socket)), handler_(handler) {}
 
 void Session::start() {
-    std::cout << "====================+START+==========================" << std::endl;
-    // main2();
-    // // handler_->serve(shared_from_this(), shared_from_this());
-    // // return;
-    // std::cout << "START" << std::endl;
-    // // async_read();
-
-    // boost::asio::read(socket_, boost::asio::buffer(data_, 8));
-    // std::stringstream strHex;
-    // data_[8] = 0;
-    // strHex << std::string(data_);
-    // std::cout << strHex.str() << std::endl;
-    // int k;
-    // strHex >> std::hex >> k;
-    // std::cout << k << " :размер данных" << std::endl;
-    // char ncn[1024];
-    // while (k >= 1024) {
-    //     boost::asio::read(socket_, boost::asio::buffer(data_, 1024));
-    //     read_buf_.write(data_, 1024);
-    //     // socket_.async_read_some(boost::asio::buffer(data_, 1024),
-    //     //     boost::bind(&Session::on_read, this,
-    //     //     boost::asio::placeholders::error,
-    //     //     boost::asio::placeholders::bytes_transferred));
-    //     k -= 1024;
-    // }
-    // if (k > 0) {
-    //     boost::asio::read(socket_, boost::asio::buffer(data_, k));
-    //     read_buf_.write(data_, k);
-    //     // socket_.async_read_some(boost::asio::buffer(data_, k),
-    //     //     boost::bind(&Session::on_read, this,
-    //     //     boost::asio::placeholders::error,
-    //     //     boost::asio::placeholders::bytes_transferred));
-    // }
-    // handler_->serve(shared_from_this(), shared_from_this());
-
-    std::cout << "============START=NEW=LEVEL================" << std::endl;
-    m_async_read();
-
+    std::cout << "New connection" << std::endl;
+    async_read();
 }
 
 std::size_t Session::read(Package & pkg) {
     pkg = pkgs_on_read_.front();
     pkgs_on_read_.pop();
-    // read_buf_ >> str;
-    // str = read_buf_.str();
-    // // std::getline(read_buf_, str);
-    // return str.size();
-
-
-
-    // while (pkgs_on_read_.empty()) {
-    //     std::cout << -2 << std::endl;
-    // }
-    // str = pkgs_on_read_.front().text;
-    // pkgs_on_read_.pop();
     return 0;
 }
 
 std::size_t Session::write(const Package & pkg) {
-        // int length = str.size();
-        // std::stringstream ss;
-        // ss << std::setw(8) << std::hex << length;
-        // std::string head = ss.str();
-        // std::cout << "WRITE" << std::endl;
-        // std::cout << head << std::endl;
-        // std::cout << "WEND" << std::endl;
-        // boost::asio::write(socket_, boost::asio::buffer(head.c_str(), 8));
-        // boost::asio::write(socket_, boost::asio::buffer(str.c_str(), length));
-
         pkgs_on_write_.push(pkg);
-        m_async_write();
-        // if (queue_on_write_.empty()) {
-        //     queue_on_write_.push(str);
-        //     async_write();
-        // } else {
-        //     queue_on_write_.push(str);
-        // }
+        async_write();
         return 0;
 }
 
 void Session::async_read() {
-    boost::asio::async_read_until(
-        socket_,
-        streambuf,
-        "\nend\n",
-        std::bind(&Session::on_read, shared_from_this(),
-            std::placeholders::_1,
-            std::placeholders::_2)
-    );
-}
-
-void Session::on_read(boost::system::error_code error, std::size_t bytes_transferred) {
-    read_buf_.write(data_, bytes_transferred);
-    // std::cout << error.to_string() << "+++++" << bytes_transferred << std::endl;
-    // std::cout << "read 8b" << strlen(data_) << std::endl;
-    // std::cout << (int) data_[1011] << std::endl;
-    // if (!error) {
-    //     read_buf_ << std::istream(&streambuf).rdbuf();
-    //     handler_->serve(shared_from_this(), shared_from_this());
-    //     async_read();
-    // } else {
-    //     socket_.close(error);
-    // }
+    boost::asio::async_read(socket_, boost::asio::buffer(inbound_header_),
+            boost::bind(&Session::handle_read_header,
+            shared_from_this(), boost::asio::placeholders::error));
 }
 
 void Session::async_write() {
-    boost::asio::async_write(
-        socket_,
-        boost::asio::buffer(queue_on_write_.front()),
-        std::bind(&Session::on_write, shared_from_this(), std::placeholders::_1, std::placeholders::_2));
+    Package t = pkgs_on_write_.front();
+        pkgs_on_write_.pop();
+        std::cout << "async_write only voice bytes: " << t.voice.size() << std::endl;
+
+        std::ostringstream archive_stream;
+        boost::archive::text_oarchive archive(archive_stream);
+        archive << t;
+        outbound_data_ = archive_stream.str();
+        std::cout << "async_write bytes: " << outbound_data_.size() << std::endl;
+
+        std::ostringstream header_stream;
+        header_stream << std::setw(header_length)
+        << std::hex << outbound_data_.size();
+        if (!header_stream || header_stream.str().size() != header_length) {
+            boost::system::error_code error(boost::asio::error::invalid_argument);
+            std::cerr << "Error: async_write" << std::endl;
+            return;
+        }
+
+        outbound_header_ = header_stream.str();
+        std::vector<boost::asio::const_buffer> buffers;
+        buffers.push_back(boost::asio::buffer(outbound_header_));
+        buffers.push_back(boost::asio::buffer(outbound_data_));
+        std::size_t n = boost::asio::write(socket_, buffers);
+        std::cout << "realy write bytes: " << n << std::endl;
 }
 
-void Session::on_write(boost::system::error_code error, std::size_t bytes_transferred) {
-    if (!error) {
-        queue_on_write_.pop();
-        if (!queue_on_write_.empty()) {
-            async_write();
-        }
+void Session::handle_read_header(const boost::system::error_code& e) {
+    if (e) {
+        std::cerr << "Error: handler read header" << std::endl;
     } else {
-        socket_.close(error);
+        std::istringstream is(std::string(inbound_header_, header_length));
+        std::size_t inbound_data_size = 0;
+        if (!(is >> std::hex >> inbound_data_size)) {
+            boost::system::error_code error(boost::asio::error::invalid_argument);
+            std::cerr << "Error: handler_read_header: Не получается вычитать размер" << std::endl;
+            return;
+        }
+        std::cout << "READ HEAD AND DATASIZE = " << inbound_data_size << std::endl;
+        inbound_data_.resize(inbound_data_size);
+        boost::asio::async_read(socket_, boost::asio::buffer(inbound_data_),
+        boost::bind(&Session::handle_read_data, shared_from_this(),
+            boost::asio::placeholders::error));
+    }
+}
+
+void Session::handle_read_data(const boost::system::error_code& e) {
+    if (e) {
+        std::cerr << "Error: handle read data" << std::endl;
+    } else {
+        Package t;
+        try {
+            std::string archive_data(&inbound_data_[0], inbound_data_.size());
+            std::istringstream archive_stream(archive_data);
+            boost::archive::text_iarchive archive(archive_stream);
+            archive >> t;
+        } catch (std::exception& e) {
+            std::cerr << e.what() << std::endl;
+            boost::system::error_code error(boost::asio::error::invalid_argument);
+            std::cerr << "Error: handle_read_data не удалось считать данные" << std::endl;
+            return;
+        }
+        if (!t.finish) {
+            std::cout << "go read next package" << std::endl;
+            async_read();
+        }
+        std::cout << t.text << std::endl;
+        pkgs_on_read_.push(t);
+        if (t.finish) {
+            handler_->serve(shared_from_this(), shared_from_this());
+        }
     }
 }

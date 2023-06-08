@@ -13,7 +13,10 @@ void VkAsr::trans(const std::string & voice_question, std::string & text_questio
     std::string body = voice_question;
     std::string res;
     client_->post(header, body, url, res);
-    
-    json resJSON = json::parse(res);
-    text_question = resJSON["result"]["texts"][0]["punctuated_text"];
+    try {
+        json resJSON = json::parse(res);
+        text_question = resJSON["result"]["texts"][0]["punctuated_text"];
+    } catch (std::exception) {
+        std::cerr << "Ошибка распознования речи" << std::endl;
+    }
 }

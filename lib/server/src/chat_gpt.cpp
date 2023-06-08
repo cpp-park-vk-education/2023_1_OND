@@ -34,10 +34,14 @@ void ChatGPT::sendQuestion(const std::string & token,
 }
 
 void ChatGPT::fetchAnswer(const std::string & response, std::string & answer) {
-    json resJSON = json::parse(response);
-    if (resJSON.find("error") != resJSON.end()) {
-        answer = resJSON["error"];
-    } else {
-        answer = resJSON["choices"][0]["message"]["content"];
+    try {
+        json resJSON = json::parse(response);
+        if (resJSON.find("error") != resJSON.end()) {
+            answer = resJSON["error"];
+        } else {
+            answer = resJSON["choices"][0]["message"]["content"];
+        }
+    } catch (std::exception) {
+        std::cerr << "Не удалось получить ответ от ChatGPT" << std::endl;
     }
 }

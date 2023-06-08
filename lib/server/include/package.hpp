@@ -24,5 +24,3 @@ struct Package {
     ar & param;
   }
 };
-
-void main2();

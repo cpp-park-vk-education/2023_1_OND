@@ -16,9 +16,11 @@ void TextToSpeech::speak(const std::string& text_answer, const std::string & voi
         "\", \"format\": \"wav\"}";
     std::string response;
     client_->post(header, body, url, response);
-    std::cout << response << std::endl;
-    json resJSON = json::parse(response);
-    std::string u = resJSON["file"];
-    voice_answer = Get(u);
-    // voice_answer.erase(voice_answer.begin(), voice_answer.begin() + 44);
+    try {
+        json resJSON = json::parse(response);
+        std::string u = resJSON["file"];
+        voice_answer = Get(u);
+    } catch (std::exception) {
+        std::cerr << "Ошибка синтеза речи" << std::endl;
+    }
 }
