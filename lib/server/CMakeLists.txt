@@ -7,7 +7,8 @@ add_library(server src/server-tcp.cpp
                    src/vk_asr.cpp
                    src/yandex_tts.cpp
                    src/vk_tts.cpp
-                   src/handler_ask.cpp)
+                   src/handler_ask.cpp
+                   src/gpt_stream.cpp)
 
 target_include_directories(server PUBLIC include)
 target_include_directories(server PRIVATE ../json/include)
