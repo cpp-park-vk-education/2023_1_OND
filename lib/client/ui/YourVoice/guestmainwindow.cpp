@@ -1,5 +1,5 @@
 #include "guestmainwindow.h"
-#include "./ui_guestmainwindow.h"
+#include "ui_guestmainwindow.h"
 #include <QPixmap>
 #include <QIcon>
 
@@ -7,16 +7,22 @@ GuestMainWindow::GuestMainWindow(QWidget *parent) : QMainWindow(parent), ui(new 
 {
     ui->setupUi(this);
     QPixmap logo;
-    logo.load("/Users/muslimitsuhide/2023_1_OND/lib/client/ui/YourVoice/img/logo.png"); //need to fix the reference to relative
-    ui->LogoLabel->setPixmap(logo);
+    logo.load(":/logo.png");
+    ui->Logo->setPixmap(logo);
 
-    QPixmap voice_img;
-    voice_img.load("/Users/muslimitsuhide/2023_1_OND/lib/client/ui/YourVoice/img/voice.png"); //need to fix the reference to relative
-    ui->VoiceLabel->setPixmap(voice_img);
+    QPixmap voicelogo;
+    voicelogo.load(":/voice.png");
+    ui->VoiceLogo->setPixmap(voicelogo);
 
-    QIcon buttonIcon("/Users/muslimitsuhide/2023_1_OND/lib/client/ui/YourVoice/img/voice_btn.png"); //need to fix the reference to relative
-    ui->RecordButton->setIcon(buttonIcon);
-    ui->RecordButton->setIconSize(QSize(90, 90));
+    QIcon buttonIcon(":/voice_btn.png");
+    ui->RecordBtn->setIcon(buttonIcon);
+    ui->RecordBtn->setIconSize(QSize(120, 120));
+
+    authwindow = new AuthWindow();
+    connect(authwindow, &AuthWindow::mainwindow, this, &GuestMainWindow::show);
+
+    devwindow = new DevWindow();
+    connect(devwindow, &DevWindow::mainwindow, this, &GuestMainWindow::show);
 }
 
 GuestMainWindow::~GuestMainWindow()
@@ -24,7 +30,22 @@ GuestMainWindow::~GuestMainWindow()
     delete ui;
 }
 
-void GuestMainWindow::on_RecordButton_clicked()
+
+void GuestMainWindow::on_LogInButton_clicked()
+{
+    authwindow->show();
+    this->close();
+}
+
+
+void GuestMainWindow::on_pushButton_3_clicked()
+{
+    devwindow->show();
+    this->close();
+}
+
+
+void GuestMainWindow::on_RecordBtn_clicked()
 {
     if (!isRecording) {
         //startRecord();
@@ -32,6 +53,41 @@ void GuestMainWindow::on_RecordButton_clicked()
     } else {
         //stopRecord();
         isRecording = false;
+    }
+}
+
+
+void GuestMainWindow::on_VoiceBox_activated(int index)
+{
+    switch(index)
+    {
+        case 0:
+            //формирование запроса с параметром голоса Константин
+            break;
+
+        case 1:
+            //формирование запроса с параметром голоса Жанна
+            break;
+
+        case 2:
+            //формирование запроса с параметром голоса Петр
+            break;
+
+        case 3:
+            //формирование запроса с параметром голоса Алена
+            break;
+
+        case 4:
+            //формирование запроса с параметром голоса Захар
+            break;
+
+        case 5:
+            //формирование запроса с параметром голоса Катерина
+            break;
+
+        case 6:
+            //формирование запроса с параметром голоса Павел
+            break;
     }
 }
 
